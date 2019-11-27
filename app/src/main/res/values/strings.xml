@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">GetMyRozklad KPI</string>
+    <string name="group_dlg_title">Группа</string>
+    <string name="ok">OK</string>
+    <string name="group_name">group_name</string>
+
+</resources>
