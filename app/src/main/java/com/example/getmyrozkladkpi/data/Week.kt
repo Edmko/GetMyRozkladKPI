@@ -1,4 +1,4 @@
-package com.example.getmyrozkladkpi.data.week
+package com.example.getmyrozkladkpi.data
 
 data class Week(
     val `data`: Int,

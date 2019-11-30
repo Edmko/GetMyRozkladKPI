@@ -6,10 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getmyrozkladkpi.R
-import com.example.getmyrozkladkpi.data.Data
+import com.example.getmyrozkladkpi.repository.database.entity.Lesson
 import kotlinx.android.synthetic.main.day_card.view.*
 
-class FullRozkladAdapter (private val context: Context,private val data: ArrayList<Data>):
+class FullRozkladAdapter (private val context: Context,private val data: ArrayList<Lesson>):
     RecyclerView.Adapter<FullRozkladAdapter.FullRozkladViewHolder>(){
 
 

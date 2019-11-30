@@ -8,7 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.getmyrozkladkpi.R
-import com.example.getmyrozkladkpi.data.Data
+import com.example.getmyrozkladkpi.repository.database.entity.Lesson
 import kotlinx.android.synthetic.main.rozklad_card.view.*
 import java.text.DateFormat
 import java.util.*
@@ -18,8 +18,8 @@ import kotlin.collections.ArrayList
 class RozkladAdapter(
     private val context: Context,
     private val days: List<String>,
-    private val data: List<Data>,
-    private val weekNow : Int
+    private val data: List<Lesson>,
+    private val weekNow: Int
 ) :
     RecyclerView.Adapter<RozkladAdapter.RozkladViewHolder>() {
     private var viewPool = RecyclerView.RecycledViewPool()
@@ -31,14 +31,17 @@ class RozkladAdapter(
     }
 
     override fun onBindViewHolder(holder: RozkladViewHolder, position: Int) {
-        holder.day.text = days[position]
         val fullRozkladLayoutManager = LinearLayoutManager(holder.list.context)
-        holder.date.text=getDayDate(position+2,weekNow, data[position].lesson_week.toInt())
-        holder.list.apply {
-            layoutManager = fullRozkladLayoutManager
-            adapter = FullRozkladAdapter(context, getLesson(data, position))
-            setRecycledViewPool(viewPool)
+        if (data.isNotEmpty()){
+            holder.day.text = days[position]
+            holder.date.text = getDayDate(position + 2, weekNow, data[1].lesson_week.toInt())
+            holder.list.apply {
+                layoutManager = fullRozkladLayoutManager
+                adapter = FullRozkladAdapter(context, getLesson(data, position))
+                setRecycledViewPool(viewPool)
+            }
         }
+
 
     }
 
@@ -57,21 +60,20 @@ class RozkladAdapter(
         val list: RecyclerView = itemView.lessonsList
         val date: TextView = itemView.day_date
     }
-
-    private fun getLesson(data: List<Data>, position: Int): ArrayList<Data> {
-        val list = ArrayList<Data>()
+    //List of lessons for each day
+    private fun getLesson(data: List<Lesson>, position: Int): ArrayList<Lesson> {
+        val list = ArrayList<Lesson>()
         data.forEach { if (it.day_number.toInt() == position + 1) list.add(it) }
         return list
     }
 
-    private fun getDayDate(dayOfWeek : Int, weekNow: Int, aimWeek:Int): String{
+    private fun getDayDate(dayOfWeek: Int, weekNow: Int, aimWeek: Int): String {
         val calendar = Calendar.getInstance()
-        val dayOfWeekNow=calendar[Calendar.DAY_OF_WEEK]
-        val add =dayOfWeek-dayOfWeekNow
+        val dayOfWeekNow = calendar[Calendar.DAY_OF_WEEK]
+        val add = dayOfWeek - dayOfWeekNow
         val addWeek = aimWeek - weekNow
         calendar.add(Calendar.WEEK_OF_MONTH, addWeek)
         calendar.add(Calendar.DAY_OF_MONTH, add)
         return DateFormat.getDateInstance(DateFormat.SHORT).format(calendar.time)
     }
-
 }

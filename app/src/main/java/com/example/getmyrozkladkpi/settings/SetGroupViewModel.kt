@@ -6,8 +6,9 @@ import androidx.lifecycle.ViewModel
 import com.example.getmyrozkladkpi.consts.group
 
 class SetGroupViewModel : ViewModel() {
-    fun saveGroup(activity: FragmentActivity?, string: String){
 
+
+    fun saveGroup(activity: FragmentActivity?, string: String){
         val sharedPref = activity?.getPreferences(Context.MODE_PRIVATE) ?:return
         with(sharedPref.edit()){
             putString(group, string)
