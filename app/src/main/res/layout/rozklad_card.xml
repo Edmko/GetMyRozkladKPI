@@ -3,8 +3,7 @@
     android:id="@+id/rozkladCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="5dp"
-    android:layout_marginBottom="10dp"
+    android:layout_margin="7dp"
     android:orientation="vertical">
 
     <LinearLayout
@@ -15,7 +14,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:background="@color/colorPrimary">
+            android:background="@color/purple">
             <TextView
                 android:id="@+id/day_name"
                 android:layout_width="0dp"
@@ -26,7 +25,8 @@
                 android:layout_weight="1"
                 android:textColor="@color/white"
                 android:textSize="20sp"
-                android:layout_gravity="start"/>
+                android:layout_gravity="start"
+                android:fontFamily="@font/roboto"/>
 
             <TextView
                 android:id="@+id/day_date"
@@ -39,7 +39,8 @@
                 android:maxLines="1"
                 android:text=""
                 android:textColor="@color/white"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                android:fontFamily="@font/roboto"/>
         </LinearLayout>
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lessonsList"

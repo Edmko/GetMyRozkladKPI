@@ -11,6 +11,23 @@
         tools:layout="@layout/rozklad_fragment" />
     <fragment
         android:id="@+id/setGroup"
-        android:name="com.example.getmyrozkladkpi.settings.SetGroup"
-        android:label="SetGroup" />
+        android:name="com.example.getmyrozkladkpi.settings.setGroup.SetGroup"
+        android:label="SetGroup" >
+        <action
+            android:id="@+id/action_setGroup_to_rozklad"
+            app:destination="@id/rozklad"
+            app:popUpTo="@+id/setGroup"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/settings"
+        android:name="com.example.getmyrozkladkpi.settings.Settings"
+        android:label="settings_fragment"
+        tools:layout="@layout/settings_fragment" >
+        <action
+            android:id="@+id/action_settings_to_setGroup"
+            app:destination="@+id/setGroup"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="false" />
+    </fragment>
 </navigation>

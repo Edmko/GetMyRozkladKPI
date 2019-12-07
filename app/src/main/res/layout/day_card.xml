@@ -3,8 +3,7 @@
     android:id="@+id/rozkladCard"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginBottom="2dp"
+   android:layout_margin="5dp"
     android:orientation="horizontal">
 
     <TextView
@@ -12,16 +11,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:textSize="20sp"
-        android:text="number" />
+        android:text="number"
+        style="@style/main_text_style" />
 
     <TextView
         android:id="@+id/lesson"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
-        android:textSize="20sp"
         android:text="Lesson"
+        style="@style/main_text_style"
         android:maxLines="2"/>
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.getmyrozkladkpi.rozklad
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,12 +33,15 @@ class RozkladAdapter(
 
     override fun onBindViewHolder(holder: RozkladViewHolder, position: Int) {
         val fullRozkladLayoutManager = LinearLayoutManager(holder.list.context)
-        if (data.isNotEmpty()){
+        if (data.isNotEmpty()) {
             holder.day.text = days[position]
-            holder.date.text = getDayDate(position + 2, weekNow, data[1].lesson_week.toInt())
+            holder.date.text = getDayDate(
+                days[position],
+                weekNow,
+                data[1].lesson_week.toInt())//data[1].lesson.week is week of this schedule
             holder.list.apply {
                 layoutManager = fullRozkladLayoutManager
-                adapter = FullRozkladAdapter(context, getLesson(data, position))
+                adapter = FullRozkladAdapter(context, getLesson(data, days, position))
                 setRecycledViewPool(viewPool)
             }
         }
@@ -60,17 +64,26 @@ class RozkladAdapter(
         val list: RecyclerView = itemView.lessonsList
         val date: TextView = itemView.day_date
     }
+
     //List of lessons for each day
-    private fun getLesson(data: List<Lesson>, position: Int): ArrayList<Lesson> {
+    private fun getLesson(
+        data: List<Lesson>,
+        days: List<String>,
+        position: Int
+    ): ArrayList<Lesson> {
         val list = ArrayList<Lesson>()
-        data.forEach { if (it.day_number.toInt() == position + 1) list.add(it) }
+        data.forEach {
+            if (it.day_name == days[position]) list.add(it)
+        }
         return list
     }
 
-    private fun getDayDate(dayOfWeek: Int, weekNow: Int, aimWeek: Int): String {
+    private fun getDayDate(dayOfWeek: String, weekNow: Int, aimWeek: Int): String {
+        val days = listOf("Понеділок", "Вівторок", "Середа", "Четвер", "П’ятниця", "Субота")
+        val day = days.indexOf(dayOfWeek) + 2 //dayOfWeek start from 1 index and Sunday
         val calendar = Calendar.getInstance()
         val dayOfWeekNow = calendar[Calendar.DAY_OF_WEEK]
-        val add = dayOfWeek - dayOfWeekNow
+        val add = day - dayOfWeekNow
         val addWeek = aimWeek - weekNow
         calendar.add(Calendar.WEEK_OF_MONTH, addWeek)
         calendar.add(Calendar.DAY_OF_MONTH, add)

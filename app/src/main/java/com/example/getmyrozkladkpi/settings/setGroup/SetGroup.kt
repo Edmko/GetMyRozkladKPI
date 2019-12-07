@@ -1,4 +1,4 @@
-package com.example.getmyrozkladkpi.settings
+package com.example.getmyrozkladkpi.settings.setGroup
 
 import android.os.Bundle
 import android.text.InputFilter
@@ -12,14 +12,12 @@ import androidx.navigation.fragment.findNavController
 import com.example.getmyrozkladkpi.R
 import com.example.getmyrozkladkpi.RozkladApplication
 import com.example.getmyrozkladkpi.consts.group
+import com.example.getmyrozkladkpi.consts.isFirstLaunch
 import com.example.getmyrozkladkpi.databinding.SetGroupFragmentBinding
-import com.example.getmyrozkladkpi.repository.database.AppDatabase
 import com.example.getmyrozkladkpi.repository.server.ServerCommunicator
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.android.synthetic.main.set_group_fragment.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Job
-import kotlinx.coroutines.cancel
+import kotlinx.coroutines.*
 
 class SetGroup : Fragment() {
     private lateinit var viewModel: SetGroupViewModel
@@ -30,12 +28,15 @@ class SetGroup : Fragment() {
 
         val binding = SetGroupFragmentBinding.inflate(inflater)
         viewModel = ViewModelProviders.of(this).get(SetGroupViewModel::class.java)
-        if (Prefs.getString(group, "").isNotEmpty()){this.findNavController().navigate(R.id.rozklad)}
+        if (!Prefs.getBoolean(isFirstLaunch, true)) {
+            this.findNavController().navigate(R.id.action_setGroup_to_rozklad)
+        }
+        Prefs.putBoolean(isFirstLaunch, false)
         binding.button.setOnClickListener {
-           Prefs.putString(group, binding.setGroup.text.toString())
-            RozkladApplication.appDatabase.lessonDao.deleteAllLessons()
+            Prefs.putString(group, binding.setGroup.text.toString())
+            GlobalScope.launch { RozkladApplication.appDatabase.lessonDao.deleteAllLessons() }
             ServerCommunicator(RozkladApplication.appDatabase).getAllData(binding.setGroup.text.toString())
-            it.findNavController().navigate(R.id.rozklad)
+            it.findNavController().navigate(R.id.action_setGroup_to_rozklad)
         }
         return binding.root
     }

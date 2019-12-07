@@ -5,7 +5,7 @@ import android.util.Log
 import com.example.getmyrozkladkpi.consts.week
 import com.example.getmyrozkladkpi.data.Lessons
 import com.example.getmyrozkladkpi.data.Week
-import com.example.getmyrozkladkpi. repository.database.AppDatabase
+import com.example.getmyrozkladkpi.repository.database.AppDatabase
 import com.pixplicity.easyprefs.library.Prefs
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -15,7 +15,7 @@ import retrofit2.Response
 
 class ServerCommunicator(private val mainDatabase: AppDatabase) {
 
-    fun getAllData(group: String){
+    fun getAllData(group: String) {
         GlobalScope.launch {
             getLessons(group)
             getWeekNumber()

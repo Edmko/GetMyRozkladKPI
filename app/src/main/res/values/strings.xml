@@ -6,5 +6,8 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="week_2">Другий тиждень</string>
+    <string name="week_1">Перший тиждень</string>
+    <string name="set_group">Введіть группу</string>
 
 </resources>

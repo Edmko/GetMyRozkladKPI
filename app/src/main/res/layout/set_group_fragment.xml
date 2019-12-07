@@ -10,13 +10,18 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
+            style="@style/main_text_style"
             android:textAllCaps="true"
-            android:hint="Введіть группу" />
+            android:hint="@string/set_group"/>
 
         <Button
             android:id="@+id/button"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="ОК" />
+            android:layout_height="30dp"
+            android:background="@color/purple"
+            android:text="@string/ok"
+            android:fontFamily="@font/roboto"
+            android:textColor="@color/white"
+            android:textSize="15sp"/>
     </LinearLayout>
 </layout>

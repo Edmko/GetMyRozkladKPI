@@ -9,8 +9,8 @@ import com.example.getmyrozkladkpi.R
 import com.example.getmyrozkladkpi.repository.database.entity.Lesson
 import kotlinx.android.synthetic.main.day_card.view.*
 
-class FullRozkladAdapter (private val context: Context,private val data: ArrayList<Lesson>):
-    RecyclerView.Adapter<FullRozkladAdapter.FullRozkladViewHolder>(){
+class FullRozkladAdapter(private val context: Context, private val data: ArrayList<Lesson>) :
+    RecyclerView.Adapter<FullRozkladAdapter.FullRozkladViewHolder>() {
 
 
     override fun getItemCount(): Int {
@@ -18,12 +18,18 @@ class FullRozkladAdapter (private val context: Context,private val data: ArrayLi
     }
 
     override fun onBindViewHolder(holder: FullRozkladViewHolder, position: Int) {
-        holder.lesson.text=data[position].lesson_name
-        holder.lessonNumber.text=data[position].lesson_number
+        holder.lesson.text = data[position].lesson_name
+        holder.lessonNumber.text = data[position].lesson_number
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FullRozkladViewHolder {
-        return FullRozkladViewHolder(LayoutInflater.from(context).inflate(R.layout.day_card, parent,false))
+        return FullRozkladViewHolder(
+            LayoutInflater.from(context).inflate(
+                R.layout.day_card,
+                parent,
+                false
+            )
+        )
     }
 
     inner class FullRozkladViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
